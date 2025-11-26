@@ -1,3 +1,5 @@
+//socioController.js
+
 const db = require('../db');
 
 // Función auxiliar para convertir vacíos a NULL (evita errores de fecha en MySQL)
@@ -36,22 +38,23 @@ exports.getSocioPorId = async (req, res, next) => {
  * Insertar un socio
  */
 exports.insertarSocio = async (req, res, next) => {
-    const { nombre, apellido, direccion, dni, fecha_nacimiento, telefono, email, fecha_alta, estado, zona } = req.body;
+    const { nombre, apellido, direccion, dni, fechaNacimiento, telefono, email, fechaAlta, estado, idZona, idCategoria } = req.body;
     
     try {
         const [result] = await db.query(
-            'INSERT INTO socios (nombre, apellido, direccion, dni, fecha_nacimiento, telefono, email, fecha_alta, estado, zona) VALUES(?,?,?,?,?,?,?,?,?,?)', 
+            'INSERT INTO socios (nombre, apellido, direccion, dni, fechaNacimiento, telefono, email, fechaAlta, estado, idZona, idCategoria) VALUES(?,?,?,?,?,?,?,?,?,?,?)', 
             [
                 nombre, 
                 apellido, 
                 direccion, 
                 dni, 
-                cleanDate(fecha_nacimiento), // Usa cleanDate para evitar errores
+                cleanDate(fechaNacimiento), // Usa cleanDate para evitar errores
                 telefono, 
                 email, 
-                cleanDate(fecha_alta),      // Usa cleanDate para evitar errores
+                cleanDate(fechaAlta),      // Usa cleanDate para evitar errores
                 estado, 
-                zona
+                idZona,
+                idCategoria
             ]
         );
         
@@ -62,29 +65,31 @@ exports.insertarSocio = async (req, res, next) => {
     }
 };
 
+
 /**
  * Actualizar socio
  */
 exports.modificarSocio = async (req, res, next) => {
     const id = req.params.id;
-    const { nombre, apellido, direccion, dni, fecha_nacimiento, telefono, email, fecha_alta, estado, zona } = req.body;
+    const { nombre, apellido, direccion, dni, fechaNacimiento, telefono, email, fechaAlta, estado, idZona, idCategoria } = req.body;
     
     console.log("Datos recibidos para modificar:", req.body); // ¡Mira esto en tu terminal!
 
     try {
         await db.query(
-            'UPDATE socios SET nombre=?, apellido=?, direccion=?, dni=?, fecha_nacimiento=?, telefono=?, email=?, fecha_alta=?, estado=?, zona=? WHERE id=?',
+            'UPDATE socios SET nombre=?, apellido=?, direccion=?, dni=?, fechaNacimiento=?, telefono=?, email=?, fechaAlta=?, estado=?, idZona=?, idCategoria=? WHERE id=?',
             [
                 nombre, 
                 apellido, 
                 direccion, 
                 dni, 
-                cleanDate(fecha_nacimiento), // Usa cleanDate
+                cleanDate(fechaNacimiento), // Usa cleanDate
                 telefono, 
                 email, 
-                cleanDate(fecha_alta),      // Usa cleanDate
+                cleanDate(fechaAlta),      // Usa cleanDate
                 estado, 
-                zona, 
+                idZona, 
+                idCategoria,
                 id
             ]
         );
