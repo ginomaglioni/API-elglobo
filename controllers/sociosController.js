@@ -38,11 +38,11 @@ exports.getSocioPorId = async (req, res, next) => {
  * Insertar un socio
  */
 exports.insertarSocio = async (req, res, next) => {
-    const { nombre, apellido, direccion, dni, fechaNacimiento, telefono, email, fechaAlta, estado, idZona, idCategoria } = req.body;
+    const { nombre, apellido, direccion, dni, fechaNacimiento, telefono, email, fechaAlta, estado, idZona, idCategoria, idCasillero } = req.body;
     
     try {
         const [result] = await db.query(
-            'INSERT INTO socios (nombre, apellido, direccion, dni, fechaNacimiento, telefono, email, fechaAlta, estado, idZona, idCategoria) VALUES(?,?,?,?,?,?,?,?,?,?,?)', 
+            'INSERT INTO socios (nombre, apellido, direccion, dni, fechaNacimiento, telefono, email, fechaAlta, estado, idZona, idCategoria, idCasillero) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)', 
             [
                 nombre, 
                 apellido, 
@@ -54,7 +54,8 @@ exports.insertarSocio = async (req, res, next) => {
                 cleanDate(fechaAlta),      // Usa cleanDate para evitar errores
                 estado, 
                 idZona,
-                idCategoria
+                idCategoria,
+                idCasillero
             ]
         );
         
@@ -71,13 +72,13 @@ exports.insertarSocio = async (req, res, next) => {
  */
 exports.modificarSocio = async (req, res, next) => {
     const id = req.params.id;
-    const { nombre, apellido, direccion, dni, fechaNacimiento, telefono, email, fechaAlta, estado, idZona, idCategoria } = req.body;
+    const { nombre, apellido, direccion, dni, fechaNacimiento, telefono, email, fechaAlta, estado, idZona, idCategoria, idCasillero } = req.body;
     
     console.log("Datos recibidos para modificar:", req.body); // ¡Mira esto en tu terminal!
 
     try {
         await db.query(
-            'UPDATE socios SET nombre=?, apellido=?, direccion=?, dni=?, fechaNacimiento=?, telefono=?, email=?, fechaAlta=?, estado=?, idZona=?, idCategoria=? WHERE id=?',
+            'UPDATE socios SET nombre=?, apellido=?, direccion=?, dni=?, fechaNacimiento=?, telefono=?, email=?, fechaAlta=?, estado=?, idZona=?, idCategoria=?, idCasillero=? WHERE id=?',
             [
                 nombre, 
                 apellido, 
@@ -90,6 +91,7 @@ exports.modificarSocio = async (req, res, next) => {
                 estado, 
                 idZona, 
                 idCategoria,
+                idCasillero,
                 id
             ]
         );
