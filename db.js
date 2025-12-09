@@ -28,7 +28,7 @@ const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'el-globo',
+    database: 'el-globo1',
     waitForConnections: true, // Espera si todas las conexiones están en uso
     connectionLimit: 10,      // Número de conexiones en la piscina
     queueLimit: 0             // Cola ilimitada de consultas
