@@ -29,6 +29,14 @@ exports.validarActividades = [
     body('turno').notEmpty().withMessage('El turno es obligatorio')
 ]
 
+exports.validarUsuarios = [
+    body('usuario').notEmpty().withMessage('El nombre es obligatorio'),
+    body('contrasena').notEmpty().withMessage('El costo es obligatoria'),
+    body('rol').notEmpty().withMessage('El turno es obligatorio')
+    //body('idSocio').isInt().withMessage('El idSocio es obligatorio')
+    //body('idCobrador').isInt().withMessage('El idCobrador es obligatorio')
+]
+
 exports.validarCategorias = [
     body('nombre').notEmpty().withMessage('El nombre es obligatorio'),
     body('monto').isInt().withMessage('El monto es obligatoria')
@@ -43,5 +51,5 @@ exports.validarCasilleros = [
 
 exports.validarCobradores = [
     body('nombre').notEmpty().withMessage('El nombre es obligatoria'),
-    body('zonas_id').isInt({ gt: 0 }).withMessage('El ID de la zona es obligatorio y debe ser un número válido')
+    //body('zonas_id').isInt({ gt: 0 }).withMessage('El ID de la zona es obligatorio y debe ser un número válido')
 ]
